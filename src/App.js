@@ -18,7 +18,9 @@ import Register from './pages/Register';
 
 // redux things
 import { Provider } from 'react-redux';
-import store from './app/store';
+import store, { rrfProps } from './app/store';
+import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
+
 import Testing from './pages/Testing';
 
 const theme = createTheme ({
@@ -59,37 +61,40 @@ const theme = createTheme ({
 function App() {
     return (
         <Provider store={store}>
-            <StylesProvider injectFirst>
-                <ThemeProvider theme={theme}>
-                    <Router>
-                        <Navbar />
-                        <Switch>
-                            <Route exact path="/">
-                                <Home />
-                            </Route>
-                            <Route exact path="/home">
-                                <HomeMovie />
-                            </Route>
-                            <Route exact path="/movies">
-                                <MoviesPage />
-                            </Route>
-                            <Route exact path="/movie-detail/:id">
-                                <MovieDetail />
-                            </Route>
-                            <Route exact path="/login">
-                                <Login />
-                            </Route>
-                            <Route exact path="/register">
-                                <Register />
-                            </Route>
-                            <Route exact path="/testing">
-                                <Testing />
-                            </Route>
-                        </Switch>
-                    </Router>
-                    <Footer />
-                </ThemeProvider>
-            </StylesProvider>
+            <ReactReduxFirebaseProvider {...rrfProps}>
+                <StylesProvider injectFirst>
+                    <ThemeProvider theme={theme}>
+                        <Router>
+                            <Navbar />
+                            <Switch>
+                                <Route exact path="/">
+                                    <Home />
+                                </Route>
+                                <Route exact path="/home">
+                                    <HomeMovie />
+                                </Route>
+                                <Route exact path="/movies">
+                                    <MoviesPage />
+                                </Route>
+                                <Route exact path="/movie-detail/:id">
+                                    <MovieDetail />
+                                </Route>
+                                <Route exact path="/login">
+                                    <Login />
+                                </Route>
+                                <Route exact path="/register">
+                                    <Register />
+                                </Route>
+                                <Route exact path="/testing">
+                                    <Testing />
+                                </Route>
+                            </Switch>
+                        </Router>
+                        <Footer />
+                    </ThemeProvider>
+                </StylesProvider>
+
+            </ReactReduxFirebaseProvider>
         </Provider>
     );
 }
