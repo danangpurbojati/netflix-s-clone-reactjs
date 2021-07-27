@@ -1,27 +1,27 @@
 // import redux modules
 import { combineReducers, createStore, applyMiddleware, compose } from 'redux';
 
-// firestrore
+// firebase
 import firebase from '../firebaseConfig';
 import { getFirebase } from 'react-redux-firebase';
-import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase';
-
-import { createFirestoreInstance } from 'redux-firestore';
+import { createFirestoreInstance, firestoreReducer } from 'redux-firestore'
 
 // redux thunk middleware
 import thunk from 'redux-thunk';
 
 // import reducer
 import movieReducer from '../features/Movies/reducer';
+import authReducer from '../features/Auth/reducer';
 
 const composerEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // combine all reducers
 const rootReducers = combineReducers({
     movies: movieReducer,
-    firestore: firestoreReducer,
+    auth: authReducer,
     firebase: firebaseReducer,
+    firestore: firestoreReducer
 });
 
 const store = createStore(rootReducers, composerEnhancer(
@@ -32,8 +32,9 @@ const store = createStore(rootReducers, composerEnhancer(
 export const rrfProps = {
     firebase,
     config: {
-        userProfile: 'users'
-    },
+        userProfile: 'users',
+        useFirestoreForProfile: true
+    }, //please with firestore collection
     dispatch: store.dispatch,
     createFirestoreInstance
 }

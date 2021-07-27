@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Alert from '@material-ui/lab/Alert';
 import { Link } from 'react-router-dom';
 
 export const AuthWrapper = styled.div`
@@ -52,6 +53,17 @@ export const AuthLink = styled(Link)`
 
     &:hover{
         text-decoration: underline
+    }
+`;
+
+export const AuthAlert = styled(Alert)`
+    background-color: transparent;
+    color: red;
+    margin-bottom: 16px;
+    border: 1px solid red;
+
+    .MuiSvgIcon-root{
+        color: red;
     }
 `;
 

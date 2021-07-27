@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import { useHistory } from 'react-router-dom';
 
 import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
@@ -10,6 +12,7 @@ import { FlexWrapper, MovieHeroContent, MovieHeroImage, MovieHeroWrapper, MovieT
 import { discoverMovies } from '../../api/movies';
 
 const HomeMovieHero = () => {
+    const history = useHistory();
     const [movie, setMovie] = useState({});
 
     const fetchHeroMovie = async () => {
@@ -25,6 +28,7 @@ const HomeMovieHero = () => {
         fetchHeroMovie();
     }, [])
 
+    console.log(movie);
     return (
         <MovieHeroWrapper>
             <MovieHeroImage src={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`} alt="movie" />
@@ -35,7 +39,7 @@ const HomeMovieHero = () => {
                         <Typography gutterBottom>{movie.overview}</Typography>
                         {/* <Typography variant="caption">Genre: Horror, Comedi, Sci-FI</Typography> */}
                         <FlexWrapper>
-                            <YearText>{movie.release_date}</YearText>
+                            <YearText>{moment(movie.release_date).format("MMM Do YY")}</YearText>
                             <YearText>|</YearText>
                             <FlexWrapper>
                                 <Typography>{movie.vote_average}</Typography>
@@ -46,6 +50,7 @@ const HomeMovieHero = () => {
                             variant="contained" 
                             color="secondary"
                             startIcon={<PlayArrowIcon />}
+                            onClick={() => history.push(`/movie-detail/${movie.id}`)}
                         >
                             Watch Now                        
                         </Button>

@@ -14,7 +14,6 @@ const MoviesPage = () => {
 
     const dispatch = useDispatch();
     const { movies, totalPages, currentPage } = useSelector(state => state.movies);
-    const reduxState = useSelector(state => console.log(state));
 
     const moreImages = () => {
         dispatch(goToNextPage());

@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import StarIcon from '@material-ui/icons/Star';
+import moment from 'moment';
 import { ImageThumbnail, MoviePageWrapper, RatingWrapper, TextWrapper, VideoStyle, VideoWrapper } from './styles';
 import { useParams } from 'react-router-dom';
 import { detailMovie } from '../../api/movies';
@@ -20,6 +21,7 @@ const MovieDetail = () => {
         getDetailMovie(id);
     }, [id]);
 
+    console.log(moment("2021-07-07").format("MMM Do YY"));
     return (
         <MoviePageWrapper>
             {
@@ -33,7 +35,7 @@ const MovieDetail = () => {
                                 <Grid container justifyContent="space-between" alignItems="center">
                                     <div>
                                         <Typography variant="h5">{movie.title}</Typography>
-                                        <Typography>{movie.release_date}</Typography>
+                                        <Typography>{moment(movie.release_date).format("MMM Do YY")}</Typography>
                                     </div>
                                     <RatingWrapper>
                                         <Typography variant="h5">{movie.vote_average}</Typography>

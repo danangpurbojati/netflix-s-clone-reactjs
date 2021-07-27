@@ -1,4 +1,4 @@
-const apiKey = '36ee062e526c488b2058d5ecf14a0c79';
+const apiKey = process.env.REACT_APP_MOVIE_API;
 const apiHost = 'https://api.themoviedb.org/3';
 
 export const config = {

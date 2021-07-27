@@ -20,8 +20,20 @@ import Register from './pages/Register';
 import { Provider } from 'react-redux';
 import store, { rrfProps } from './app/store';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-
+import { useSelector } from 'react-redux';
+import { isLoaded } from 'react-redux-firebase';
 import Testing from './pages/Testing';
+import GuardRoute from './components/GuardRoute';
+import GuardOnlyRoute from './components/GuardOnlyRoute';
+
+// private route
+
+function AuthIsLoaded({ children }) {
+    const auth = useSelector(state => state.firebase.auth)
+    if (!isLoaded(auth)) return <div></div>;
+    return children
+};
+
 
 const theme = createTheme ({
     shape: {
@@ -64,36 +76,37 @@ function App() {
             <ReactReduxFirebaseProvider {...rrfProps}>
                 <StylesProvider injectFirst>
                     <ThemeProvider theme={theme}>
+                        <AuthIsLoaded>
                         <Router>
                             <Navbar />
                             <Switch>
                                 <Route exact path="/">
                                     <Home />
                                 </Route>
-                                <Route exact path="/home">
+                                <GuardRoute exact path="/home">
                                     <HomeMovie />
-                                </Route>
-                                <Route exact path="/movies">
+                                </GuardRoute>
+                                <GuardRoute exact path="/movies">
                                     <MoviesPage />
-                                </Route>
-                                <Route exact path="/movie-detail/:id">
+                                </GuardRoute>
+                                <GuardRoute exact path="/movie-detail/:id">
                                     <MovieDetail />
-                                </Route>
-                                <Route exact path="/login">
+                                </GuardRoute>
+                                <GuardOnlyRoute exact path="/login">
                                     <Login />
-                                </Route>
-                                <Route exact path="/register">
+                                </GuardOnlyRoute>
+                                <GuardOnlyRoute exact path="/register">
                                     <Register />
-                                </Route>
+                                </GuardOnlyRoute>
                                 <Route exact path="/testing">
                                     <Testing />
                                 </Route>
                             </Switch>
                         </Router>
                         <Footer />
+                        </AuthIsLoaded>
                     </ThemeProvider>
                 </StylesProvider>
-
             </ReactReduxFirebaseProvider>
         </Provider>
     );
